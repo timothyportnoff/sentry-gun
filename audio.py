@@ -1,39 +1,30 @@
 import pygame
+from time import sleep
+
 #file setup
-path = "/home/pi/hammer_time/sounds/"
-sound_files = ["SeinFfeldTheme"]
+file_path = "sounds/"
+file_ext = ".wav"
+speaker_volume = 0.3 
 
-
-def play_rift():
+def play_audio(file_name):
     pygame.mixer.init()
-    speaker_volume = 0.5 
     pygame.mixer.music.set_volume(speaker_volume)
-    pygame.mixer.music.load("sounds/intro.wav")
+    pygame.mixer.music.load(file_path + file_name + file_ext)
     pygame.mixer.music.play()
     return
 
-def play_point():
+def play_audio_loop(file_name, loop):
+    #for i in range(loop):
     pygame.mixer.init()
-    speaker_volume = 0.5 
     pygame.mixer.music.set_volume(speaker_volume)
-    pygame.mixer.music.load("sounds/point.wav")
-    pygame.mixer.music.play()
-    return
-
-def play_applause():
-    pygame.mixer.init()
-    speaker_volume = 0.5 
-    pygame.mixer.music.set_volume(speaker_volume)
-    pygame.mixer.music.load("sounds/applause.wav")
-    pygame.mixer.music.play()
-    #while pygame.mixer.music.get_busy() == True:
-    #    continue
+    pygame.mixer.music.load(file_path + file_name + file_ext)
+    pygame.mixer.music.play(loop)
+    #sleep(.3)
     return
 
 def play_seinfeld():
     pygame.mixer.init()
-    speaker_volume = 0.5 
-    pygame.mixer.music.set_volume(speaker_volume)
+    pygame.mixer.music.set_volume(1)
     pygame.mixer.music.load("sounds/SeinfeldTheme.mp3")
     pygame.mixer.music.play()
     #while pygame.mixer.music.get_busy() == True:

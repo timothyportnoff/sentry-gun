@@ -3,97 +3,90 @@ import RPi.GPIO as GPIO
 import threading
 import os
 import pygame
+import random
 
-#Hammer_time libs
+#Sentry libs
 from config import *
 from time import sleep
-from tickets import * 
 from led import * 
 from sonar import *
-from call import *
 from audio import *
 from motor import * 
-#from speaker import * 
 
-if __name__ =="__main__":
-    while True:
-        #Welcome, and setup
-        print("\"It's Hammer Time.\" - MC Hammer")
-        #Create threads
-        #intro_sound_thread_1 = threading.Thread(target=play_seinfeld)
-        #point_sound_thread_1 = threading.Thread(target=play_point)
-        #point_sound_thread_2 = threading.Thread(target=play_point)
-        #point_sound_thread_3 = threading.Thread(target=play_point)
-        #intro_sound_thread_1 .start() 
-        #intro_sound_thread_1 .join() 
+try:
+    if __name__ == "__main__":
+        while True:
+            #Welcome, and setup
+            print("Sentry Mode: Activated.")
 
-        if FANCY:
-            for i in range(4):
-                servin_time()
-            light_show_1(RED, YELLOW, GREEN)
-        led_off_3(GREEN, YELLOW, RED)
+            #Start audio
+            play_audio("sentry_mode_activated")
+            prev_sound = "null"
 
-        #Point system
-        points = 0
+            #Main Loop:
+            while True:
+                led_off(RED)
+                for i in range(20):
+                    print('Measure: ')
+                    distance = measure_better_average(GPIO_TRIGGER_1, GPIO_ECHO_1) #check distance
+                    if DEBUG: print('Sonar 1 Distance: ', distance, '.')
 
-        #while True:
-        for i in range(500):
-            #check distance
-            distance = measure_better_average() 
-            #distance = measure_average() 
-            print('Distance: ')
-            print(distance)
-            #print("Distance: %d", %(distance))
+                    if distance < 50:
+                        #Update warning LED  
+                        led_on(RED)
 
-            if distance < 92:
-                led_on(RED)
-                if points < 1:
-                    points = 1
-                    #point_sound_thread_1 .start() 
-                    #point_sound_thread_1 .join() 
-            if distance < 62:
-                led_on(YELLOW)
-                if points < 2:
-                    points = 2
-                    #point_sound_thread_2 .start() 
-                    #point_sound_thread_2 .join() 
-            if distance < 32:
-                led_on(GREEN)
-                if points < 3:
-                    points = 3
-                    #point_sound_thread_3 .start() 
-                    #point_sound_thread_3 .join() 
-                    #play_applause()
-                break
+                        #Pick random path and play sound
+                        sound_path = random.randrange(0, 9)
 
-        if points == 0:
-            print("\"Lowly Tarnished. Thou art unfit even to graft.\" - Kerney")
-            exit(1)
-        elif points == 1:
-            TICKETS()
-            print_tickets(points)
-        elif points == 2:
-            TICKETS()
-            print_tickets(points)
-        elif points == 3:
-            if FANCY:
-                for i in range(4):
-                    servin_time()
-                light_show_2(RED, YELLOW, GREEN)
-            TICKETS()
-            print_tickets(points)
+                        #print(sound_path)
+                        if sound_path == 0:
+                            play_audio("acquired")
+                        elif sound_path == 1:
+                            play_audio("i_see_you")
+                        elif sound_path == 2:
+                            play_audio("ahahaha")
+                        elif sound_path == 3:
+                            play_audio("firing")
+                        elif sound_path == 4:
+                            play_audio("gotcha")
+                        elif sound_path == 5:
+                            play_audio("hello")
+                        elif sound_path == 6:
+                            play_audio("hellooo")
+                        elif sound_path == 7:
+                            play_audio("there_you_are")
+                        elif sound_path == 8:
+                            play_audio("hold_still")
+                        sleep(2)
 
-        #Cool off for next game
-        sleep(2)
-        led_off_3(GREEN, YELLOW, RED)
-        print("Game ready in 3.")
-        sleep(1)
-        print("Game ready in 2.")
-        sleep(1)
-        print("Game Ready in 1.")
-        sleep(1)
+                        #Play firing sound
+                        #play_audio_loop("fire", 10)
+                        play_audio("turret_fire")
+                        sleep(3)
+                    #Sleep at the end of the loop. This is a magic number, please adjust.
+                    sleep(0.4)
+                #Pick random path and play sound
+                sound_path = random.randrange(0, 7)
+                if sound_path == prev_sound: sound_path = random.randrange(0, 7)
+                #print(sound_path)
+                if sound_path == 0:
+                    play_audio("is_anyone_there")
+                elif sound_path == 1:
+                    play_audio("hi_question")
+                elif sound_path == 2:
+                    play_audio("who's_there")
+                elif sound_path == 3:
+                    play_audio("come_over_here")
+                elif sound_path == 4:
+                    play_audio("hello_question")
+                elif sound_path == 5:
+                    play_audio("canvasing")
+                elif sound_path == 6:
+                    play_audio("searching")
 
-    #Exit cleanly
-    #TODO
-    print("Exiting program.")
+#Exit cleanly after a keyboard interrupt
+except KeyboardInterrupt:
+    print("\"Lowly Tarnished. Thou art unfit even to graft.\" - Kerney")
+    #led_off_3(GREEN, YELLOW, RED)
     GPIO.cleanup()
+    print("Exiting program.")

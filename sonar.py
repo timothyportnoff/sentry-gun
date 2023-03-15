@@ -12,13 +12,13 @@ temperature = 20
 speedSound = 33100 + (0.6*temperature)
 
 # Set pins as output and input
-GPIO.setup(GPIO_TRIGGER,GPIO.OUT)  # Trigger
-GPIO.setup(GPIO_ECHO,GPIO.IN)      # Echo
+#GPIO.setup(GPIO_TRIGGER,GPIO.OUT)  # Trigger
+#GPIO.setup(GPIO_ECHO,GPIO.IN)      # Echo
 
 # Set trigger to False (Low)
-GPIO.output(GPIO_TRIGGER, False)
+#GPIO.output(GPIO_TRIGGER, False)
 
-def measure():
+def measure(GPIO_TRIGGER, GPIO_ECHO):
     # This function measures a distance
     #def DEBUG
     #print("Ultrasonic Measurement: measure()")
@@ -51,7 +51,7 @@ def measure():
     #print(distance)
     return distance
 
-def measure_average():
+def measure_average(GPIO_TRIGGER, GPIO_ECHO):
     # This function takes 3 measurements and returns the average.
     distance1=measure()
     time.sleep(0.1)
@@ -62,19 +62,19 @@ def measure_average():
     distance = distance / 3
     return distance
 
-def measure_better_average():
+def measure_better_average(GPIO_TRIGGER, GPIO_ECHO):
     # This function takes 3 measurements and returns the average.
-    distance1=measure()
+    distance1=measure(GPIO_TRIGGER, GPIO_ECHO)
     time.sleep(0.001)
-    distance2=measure()
+    distance2=measure(GPIO_TRIGGER, GPIO_ECHO)
     time.sleep(0.001)
-    distance3=measure()
+    distance3=measure(GPIO_TRIGGER, GPIO_ECHO)
     time.sleep(0.001)
-    distance4=measure()
+    distance4=measure(GPIO_TRIGGER, GPIO_ECHO)
     time.sleep(0.001)
-    distance5=measure()
-    distance = distance1 + distance2 + distance3 + distance4 + distance5
-    distance = distance / 5
+
+    distance5=measure(GPIO_TRIGGER, GPIO_ECHO)
+    distance = (distance1 + distance2 + distance3 + distance4 + distance5) / 5
     return distance
 
 # This function takes in a distance and returns a boolean.
