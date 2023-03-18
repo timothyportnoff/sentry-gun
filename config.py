@@ -1,14 +1,17 @@
 #DEBUG
-DEBUG               = 1
-FANCY               = 1
+MOTOR_DEBUG         = 0
+SONAR_DEBUG         = 1
+SOUND_DEBUG         = 0
+LED_DEBUG           = 0
+FANCY               = 0
 
-#INPUT
+#INPUTS
 POTENTIOMMETER      = 0
-START_BUTTON        = 26
+START_BUTTON        = 0 
 STOP_BUTTON         = 0
-#KNOB               = 0
+KNOB                = 0
 
-#SONAR
+#OUTPUTS
 GPIO_TRIGGER_1      = 23
 GPIO_ECHO_1         = 24
 GPIO_TRIGGER_2      = 0
@@ -16,20 +19,15 @@ GPIO_ECHO_2         = 0
 
 #OUTPUT
 BUZZER              = 0
-#MOTOR              = 0
+MOTOR               = 0
 
 #LED'S
-RED                 = 0
-YELLOW              = 0
+RED                 = 2
+YELLOW              = 3
 GREEN               = 0
 BLUE                = 0
 
 #############################################################################
-import os
-
-#PYGAME settings
-PYGAME_HIDE_SUPPORT_PROMPT = 0
-os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 
 #GPIO settings
 import RPi.GPIO as GPIO
