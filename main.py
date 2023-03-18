@@ -26,8 +26,7 @@ try:
                 led_off(RED)
                 for i in range(20):
                     distance = measure_better_average(GPIO_TRIGGER_1, GPIO_ECHO_1) #check distance
-                    #if DEBUG: print("Sonar 1 Distance: ", distance, ".")
-                    if DEBUG: print("Sonar 1 Distance: ", distance, ".")
+                    if SONAR_DEBUG: print("Sonar 1 Distance: {:.2f}".format(distance))
 
                     if distance < 50:
                         #Update warning LED  

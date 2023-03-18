@@ -32,8 +32,10 @@ def play_seinfeld():
 def play_finding():
     #Pick random path and play sound
     sound_path = random.randrange(0, 7)
-    if sound_path == prev_sound: sound_path = random.randrange(0, 7)
-    if#print(sound_path)
+    if sound_path == prev_sound: sound_path = random.randrange(0, 7) # Don't repeat ourselves
+    if sound_path == prev_sound: sound_path = random.randrange(0, 7) # Don't repeat ourselves
+    if AUDIO_DEBUG: print(sound_path)
+
     if sound_path == 0:
         play_audio("is_anyone_there")
     elif sound_path == 1:
