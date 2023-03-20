@@ -29,25 +29,27 @@ try:
                 #TODO Add motor direction boolean
                 for i in range(20):
                     #TODO Turn motor
+
+                    #Occasional Sentry Beep
                     if i == 10: play_audio("turret_deploy")
                     if i == 17: play_audio("turret_retract")
-                    distance1 = measure_better_average(GPIO_TRIGGER_1, GPIO_ECHO_1) #check distance
-                    distance2 = measure_better_average(GPIO_TRIGGER_2, GPIO_ECHO_2) #check distance
-                    if SONAR_DEBUG: print("Sonar 1 Distance: {:.2f}".format(distance1))
-                    if SONAR_DEBUG: print("Sonar 2 Distance: {:.2f}".format(distance2))
 
-                    if distance2 > 10:
+                    #If sentry is picked up off ground
+                    distance2 = measure_average(GPIO_TRIGGER_2, GPIO_ECHO_2) #check distance
+                    if distance2 > 25 and distance2 < 150:
                         play_picked_up()
-                        sleep(0.5)
+                        sleep(1.5)
                         play_audio("turret_ping")
                         sleep(0.5)
+
+                    #If there is a target within range
+                    distance1 = measure_average(GPIO_TRIGGER_1, GPIO_ECHO_1) #check distance
                     elif distance1 < 50:
-                        #Update warning LED  
-                        led_on(RED)
                         play_found()
-                    #Sleep at the end of the loop. This is a magic number, please adjust.
+                        continue
+
                     #TODO stop motor
-                    sleep(0.4)
+                    sleep(0.4) #Sleep at the end of the loop. This is a magic number, please adjust.
 
 #Exit cleanly after a keyboard interrupt
 except KeyboardInterrupt:
