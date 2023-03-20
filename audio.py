@@ -1,11 +1,12 @@
 import pygame
 import random
 from time import sleep
+from config import *
 
 #global variables
 file_path = "sounds/"
 file_ext = ".wav"
-speaker_volume = 0.1 
+speaker_volume = .1 
 prev_sound = "null"
 
 def play_audio(file_name):
@@ -22,6 +23,7 @@ def play_audio_loop(file_name, loop):
     pygame.mixer.music.play(loop)
     return
 
+#This Pi came with a copy of the seinfeld theme song lol
 def play_seinfeld():
     pygame.mixer.init()
     pygame.mixer.music.set_volume(1)
@@ -35,7 +37,6 @@ def play_finding():
     if sound_path == prev_sound: sound_path = random.randrange(0, 7) # Don't repeat ourselves
     if sound_path == prev_sound: sound_path = random.randrange(0, 7) # Don't repeat ourselves
     if AUDIO_DEBUG: print(sound_path)
-
     if sound_path == 0:
         play_audio("is_anyone_there")
     elif sound_path == 1:
@@ -55,8 +56,9 @@ def play_finding():
 def play_found():
     #Pick random path and play sound
     sound_path = random.randrange(0, 9)
+    if sound_path == prev_sound: sound_path = random.randrange(0, 7) # Don't repeat ourselves
+    if AUDIO_DEBUG: print(sound_path)
 
-    #print(sound_path)
     if sound_path == 0:
         play_audio("acquired")
     elif sound_path == 1:
@@ -75,14 +77,9 @@ def play_found():
         play_audio("there_you_are")
     elif sound_path == 8:
         play_audio("hold_still")
-
-    #CHECK TO SEE IF BUSY TODO
-    while pygame.mixer.music.get_busy() == True:
-        continue
-    #sleep(2)
+    while pygame.mixer.music.get_busy() == True: continue #CHECK TO SEE IF BUSY
 
     #Play firing sound
-    #play_audio_loop("fire", 10)
     play_audio("turret_fire")
-    sleep(3)
+    while pygame.mixer.music.get_busy() == True: continue #CHECK TO SEE IF BUSY
     return
