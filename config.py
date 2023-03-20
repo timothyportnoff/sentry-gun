@@ -1,4 +1,3 @@
-
 #############################################################################
 
 #DEBUG
@@ -18,10 +17,14 @@ IR                  = 25
 #OUTPUTS
 GPIO_TRIGGER_1      = 23
 GPIO_ECHO_1         = 24
-GPIO_TRIGGER_2      = 0
-GPIO_ECHO_2         = 0
+GPIO_TRIGGER_2      = 19
+GPIO_ECHO_2         = 26
 BUZZER              = 0
-MOTOR               = 0
+MOTOR_1             = 12
+MOTOR_2             = 16
+MOTOR_3             = 20
+MOTOR_4             = 21
+LASER_1             = 2
 
 #LED'S
 RED                 = 0
@@ -29,13 +32,10 @@ YELLOW              = 0
 GREEN               = 0
 BLUE                = 0
 
-#LASER
-LASER_1             = 2
-
 #############################################################################
 
-#GPIO settings
 import RPi.GPIO as GPIO
+from audio import *
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
@@ -47,6 +47,8 @@ GPIO.setup(GREEN, GPIO.OUT)
 #SONAR
 GPIO.setup(GPIO_TRIGGER_1,GPIO.OUT)  # Trigger
 GPIO.setup(GPIO_ECHO_1,GPIO.IN)      # Echo
+GPIO.setup(GPIO_TRIGGER_2,GPIO.OUT)  # Trigger
+GPIO.setup(GPIO_ECHO_2,GPIO.IN)      # Echo
 
 #MOTOR
 #MOTOR1
@@ -60,4 +62,4 @@ def destroy():
     #led_off(LASER_1)
     #GPIO.output(LASER_1, GPIO.LOW)
     GPIO.cleanup()
-    print("Exiting program.")
+    play_bye()
