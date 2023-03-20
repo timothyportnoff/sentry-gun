@@ -33,53 +33,47 @@ def play_seinfeld():
 
 def play_finding():
     #Pick random path and play sound
-    sound_path = random.randrange(0, 7)
-    if sound_path == prev_sound: sound_path = random.randrange(0, 7) # Don't repeat ourselves
-    if sound_path == prev_sound: sound_path = random.randrange(0, 7) # Don't repeat ourselves
+    global prev_sound
+    sounds = ["is_anyone_there", "hi_question", "who's_there", "come_over_here", "hello_question", "canvasing", "searching"]
+    sound = sounds[random.randrange(0, len(sounds))]
+    while sound == prev_sound: sound = sounds[random.randrange(0, len(sounds))] # Don't repeat ourselves
+    prev_sound = sound
     if AUDIO_DEBUG: print(sound_path)
-    if sound_path == 0:
-        play_audio("is_anyone_there")
-    elif sound_path == 1:
-        play_audio("hi_question")
-    elif sound_path == 2:
-        play_audio("who's_there")
-    elif sound_path == 3:
-        play_audio("come_over_here")
-    elif sound_path == 4:
-        play_audio("hello_question")
-    elif sound_path == 5:
-        play_audio("canvasing")
-    elif sound_path == 6:
-        play_audio("searching")
+    play_audio(sound)
     return
 
 def play_found():
     #Pick random path and play sound
-    sound_path = random.randrange(0, 9)
-    if sound_path == prev_sound: sound_path = random.randrange(0, 7) # Don't repeat ourselves
-    if AUDIO_DEBUG: print(sound_path)
-
-    if sound_path == 0:
-        play_audio("acquired")
-    elif sound_path == 1:
-        play_audio("i_see_you")
-    elif sound_path == 2:
-        play_audio("ahahaha")
-    elif sound_path == 3:
-        play_audio("firing")
-    elif sound_path == 4:
-        play_audio("gotcha")
-    elif sound_path == 5:
-        play_audio("hello")
-    elif sound_path == 6:
-        play_audio("hellooo")
-    elif sound_path == 7:
-        play_audio("there_you_are")
-    elif sound_path == 8:
-        play_audio("hold_still")
+    global prev_sound
+    sounds = ["acquired", "i_see_you", "ahahaha", "firing", "gotcha", "hello", "hellooo", "there_you_are", "hold_still"]
     while pygame.mixer.music.get_busy() == True: continue #CHECK TO SEE IF BUSY
+    return
 
     #Play firing sound
     play_audio("turret_fire")
+    while pygame.mixer.music.get_busy() == True: continue #CHECK TO SEE IF BUSY
+    return
+
+#This is a MUCH better way to print from queue, an array of strings
+def play_bye():
+    #Pick random path and play sound
+    global prev_sound
+    sounds= ["goodbye","goodnight","hibernating","resting","nap_time","sleep_mode_activated"]
+    sound = sounds[random.randrange(0, len(sounds))]
+    while sound == prev_sound: sound = sounds[random.randrange(0, len(sounds))] # Don't repeat ourselves
+    prev_sound = sound
+    play_audio(sound)
+    while pygame.mixer.music.get_busy() == True: continue #CHECK TO SEE IF BUSY
+    return
+
+def play_picked_up():
+    #Pick random path and play sound
+    global prev_sound
+    sounds = ["help","whoa","wheee","please_put_me_down","put_me_down"]
+    sound = sounds[random.randrange(0, len(sounds))]
+    while sound == prev_sound: sound = sounds[random.randrange(0, len(sounds))] # Don't repeat ourselves
+    prev_sound = sound
+    if AUDIO_DEBUG: print(sound)
+    play_audio(sound)
     while pygame.mixer.music.get_busy() == True: continue #CHECK TO SEE IF BUSY
     return
