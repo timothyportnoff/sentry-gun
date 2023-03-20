@@ -54,3 +54,10 @@ GPIO.setup(GPIO_ECHO_1,GPIO.IN)      # Echo
 
 #LASER
 GPIO.setup(LASER_1, GPIO.OUT)
+def destroy():
+    print("\"Lowly Tarnished. Thou art unfit even to graft.\" - Kerney")
+    #led_off_3(GREEN, YELLOW, RED)
+    #led_off(LASER_1)
+    #GPIO.output(LASER_1, GPIO.LOW)
+    GPIO.cleanup()
+    print("Exiting program.")
