@@ -6,7 +6,7 @@ from config import *
 #global variables
 file_path = "sounds/"
 file_ext = ".wav"
-speaker_volume = .1 
+speaker_volume = .05 
 prev_sound = "null"
 
 def play_audio(file_name):
@@ -46,11 +46,13 @@ def play_found():
     #Pick random path and play sound
     global prev_sound
     sounds = ["acquired", "i_see_you", "ahahaha", "firing", "gotcha", "hello", "hellooo", "there_you_are", "hold_still"]
+    sound = sounds[random.randrange(0, len(sounds))]
+    while sound == prev_sound: sound = sounds[random.randrange(0, len(sounds))] # Don't repeat ourselves
+    prev_sound = sound
+    if AUDIO_DEBUG: print(sound_path)
+    play_audio(sound)
     while pygame.mixer.music.get_busy() == True: continue #CHECK TO SEE IF BUSY
-    return
-
-    #Play firing sound
-    play_audio("turret_fire")
+    play_audio("turret_fire") #Play firing sound
     while pygame.mixer.music.get_busy() == True: continue #CHECK TO SEE IF BUSY
     return
 
