@@ -53,14 +53,15 @@ def measure(GPIO_TRIGGER, GPIO_ECHO):
 
 def measure_average(GPIO_TRIGGER, GPIO_ECHO):
     # This function takes 3 measurements and returns the average.
-    distance1=measure()
+    distance1=measure(GPIO_TRIGGER, GPIO_ECHO)
     time.sleep(0.1)
-    distance2=measure()
+    distance2=measure(GPIO_TRIGGER, GPIO_ECHO)
     time.sleep(0.1)
-    distance3=measure()
-    distance = distance1 + distance2 + distance3
-    distance = distance / 3
-    return distance
+    distance3=measure(GPIO_TRIGGER, GPIO_ECHO)
+    
+    if SONAR_DEBUG: print("TRIG: {:.0f} ECHO: {:.0f} DIST: {:.2f}".format(distance1,distance1,distance1))
+    #((distance1 + distance2 + distance3) / 3)
+    return (distance1 + distance2 + distance3) / 3
 
 def measure_better_average(GPIO_TRIGGER, GPIO_ECHO):
     # This function takes 3 measurements and returns the average.
