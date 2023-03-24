@@ -19,11 +19,10 @@ GPIO_TRIGGER_1      = 23
 GPIO_ECHO_1         = 24
 GPIO_TRIGGER_2      = 19
 GPIO_ECHO_2         = 26
-BUZZER              = 0
-MOTOR_1             = 12
-MOTOR_2             = 16
-MOTOR_3             = 20
-MOTOR_4             = 21
+MOTOR_A_1           = 12
+MOTOR_A_2           = 20
+MOTOR_B_1           = 16
+MOTOR_B_2           = 21
 LASER_1             = 2
 
 #LED'S
@@ -53,6 +52,15 @@ GPIO.setup(GPIO_ECHO_2,GPIO.IN)      # Echo
 #MOTOR
 #MOTOR1
 #MOTOR2
+# Enable pins for IN1-4 to control step sequence
+ 
+def setup():
+    # Set pin states
+    GPIO.setup(MOTOR_A_1, GPIO.OUT)
+    GPIO.setup(MOTOR_A_2, GPIO.OUT)
+    GPIO.setup(MOTOR_B_1, GPIO.OUT)
+    GPIO.setup(MOTOR_B_2, GPIO.OUT)
+
 
 #LASER
 GPIO.setup(LASER_1, GPIO.OUT)
