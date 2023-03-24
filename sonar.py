@@ -59,7 +59,7 @@ def measure_average(GPIO_TRIGGER, GPIO_ECHO):
     time.sleep(0.1)
     distance3=measure(GPIO_TRIGGER, GPIO_ECHO)
     
-    if SONAR_DEBUG: print("TRIG: {:.0f} ECHO: {:.0f} DIST: {:.2f}".format(distance1,distance1,distance1))
+    if SONAR_DEBUG: print("TRIG: {:.0f} ECHO: {:.0f} DIST: {:.2f}".format(GPIO_TRIGGER,GPIO_ECHO,distance1))
     #((distance1 + distance2 + distance3) / 3)
     return (distance1 + distance2 + distance3) / 3
 
