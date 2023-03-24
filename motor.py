@@ -10,10 +10,6 @@ from gpiozero.pins.pigpio import PiGPIOFactory
 gpiozero.Device.pin_factory=PiGPIOFactory('127.0.0.1')
 servo = Servo(25)
  
-#delay = 0.0055
-delay = 0.055
-steps = 10
- 
 def servin_time():
     servo.mid()
     sleep(0.5)
@@ -57,12 +53,18 @@ if __name__ == '__main__':     # Program start from here
 	setup()
 	try:
             print("Testing STEPPER MOTOR")
-            clockwise(10, 0.05)
+            delay = 0.0028
+            fov = 20
+ 
+            clockwise(fov/2, delay)
             sleep(1)
-            cclockwise(10, 0.05)
-            cclockwise(10, 0.05)
+            cclockwise(fov, delay)
             sleep(1)
-            clockwise(10, 0.05)
+            clockwise(fov, delay)
+            sleep(1)
+            cclockwise(fov, delay)
+            sleep(1)
+            clockwise(fov/2, delay)
 
 	#except KeyboardInterrupt:  # When 'Ctrl+C' is pressed, the child program destroy() will be  executed.
 		#destroy()
