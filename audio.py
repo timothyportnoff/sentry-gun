@@ -6,7 +6,7 @@ from config import *
 #global variables
 file_path = "sounds/"
 file_ext = ".wav"
-speaker_volume = .05 
+speaker_volume = .10 
 prev_sound = "null"
 
 def play_audio(file_name):
