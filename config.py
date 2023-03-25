@@ -2,7 +2,7 @@
 
 #DEBUG
 MOTOR_DEBUG         = 0
-SONAR_DEBUG         = 1
+SONAR_DEBUG         = 0
 AUDIO_DEBUG         = 0
 LED_DEBUG           = 0
 FANCY               = 0
