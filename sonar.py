@@ -18,37 +18,25 @@ speedSound = 33100 + (0.6*temperature)
 # Set trigger to False (Low)
 #GPIO.output(GPIO_TRIGGER, False)
 
+# This function measures a distance
 def measure(GPIO_TRIGGER, GPIO_ECHO):
-    # This function measures a distance
-    #def DEBUG
-    #print("Ultrasonic Measurement: measure()")
-
-    #set trig to high
-    GPIO.output(GPIO_TRIGGER, True)
-
-    #After 0.01 ms set trig to low 
+    GPIO.output(GPIO_TRIGGER, True) #set trig to high
     time.sleep(0.00001)
-    GPIO.output(GPIO_TRIGGER, False)
+    GPIO.output(GPIO_TRIGGER, False) #After 0.01 ms set trig to low 
 
     start = time.time()
     stop = time.time()
 
     #save start time
-    #print("before start")
     while GPIO.input(GPIO_ECHO) == 0:
         start = time.time()
-    #print("after stop")
 
     #save stop time
-    #print("before start")
     while GPIO.input(GPIO_ECHO) == 1:
         stop = time.time()
-    #print("after stop")
 
     elapsed = stop-start
     distance = (elapsed * 34300)/2
-
-    #print(distance)
     return distance
 
 def measure_average(GPIO_TRIGGER, GPIO_ECHO):
